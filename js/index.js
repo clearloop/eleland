@@ -1,4 +1,4 @@
-import Circle from "./shape.js";
+import Shape from "./shape.js";
 
 /// Eleland citizens transforming
 /// + per BLOCK: level 0
@@ -11,10 +11,10 @@ const ERA = 7 * EPOCH;
 // Main function
 (function(){
     const SIZE = 300;
-    const artboard = d3.select("#land")
-          .append("svg")
-          .style("height", SIZE)
-          .style("width", SIZE);
+    const artboard = d3.select("#land");
 
-    Circle.render(artboard, SIZE);
+    Shape.render(artboard, SIZE);
+    Shape.render(artboard, SIZE);
+    Shape.render(artboard, SIZE);
+    Shape.render(artboard, SIZE);
 })();

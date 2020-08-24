@@ -12,7 +12,7 @@ function color(opacity) {
         opacity = 1;
     }
 
-    return `rgba(${rand(255)}, ${rand(255)}, ${rand(255)}, ${opacity})`;
+    return `rgba(${rand(255)}, ${rand(255)}, ${rand(255)}, ${Math.random().toFixed(1)})`;
 }
 
 function animate(target, rx, ry) {
@@ -32,7 +32,7 @@ function animate(target, rx, ry) {
 function gradient(target) {
     const rotate = rand(100);
     const gradient = rand(2) === 1? "linearGradient": "radialGradient";
-    const stops = ["5%", "20%", "45%", "75%", "95%"]
+    const stops = ["5%", "20%", "45%", "75%", "100%"]
 
     const lg = target
           .append("defs")
@@ -48,6 +48,10 @@ function gradient(target) {
 }
 
 function render(target, size) {
+    target.append("svg")
+        .style("height", size)
+        .style("width", size);
+
     const applyGradient = true;
     const applyAnimate = true;
     const cx = size / 2;
