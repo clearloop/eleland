@@ -7,6 +7,14 @@ function rand(limit) {
     return Math.floor(r * limit);
 }
 
+function color(opacity) {
+    if (opacity === undefined) {
+        opacity = 1;
+    }
+
+    return `rgba(${rand(255)}, ${rand(255)}, ${rand(255)}, ${opacity})`;
+}
+
 function animate(target, rx, ry) {
     target.append("animate")
         .attr("attributeName", "rx")
@@ -23,22 +31,20 @@ function animate(target, rx, ry) {
 
 function gradient(target) {
     const rotate = rand(100);
-    const stops = 2;
+    const gradient = rand(2) === 1? "linearGradient": "radialGradient";
+    const stops = ["5%", "20%", "45%", "75%", "95%"]
 
     const lg = target
           .append("defs")
-          .append("linearGradient")
+          .append(gradient)
           .attr("gradientTransform", `rotate(${rotate})`)
           .attr("id", "s0");
 
-    // Render gradient
-    lg.append("stop")
-        .attr("offset", "5%")
-        .attr("stop-color", "blue");
-
-    lg.append("stop")
-        .attr("offset", "95%")
-        .attr("stop-color", "red");
+    for (let i = 1; i<stops.length; i++) {
+        lg.append("stop")
+            .attr("offset", `${stops[rand(stops.length)]}`)
+            .attr("stop-color", color());
+     }
 }
 
 function render(target, size) {
