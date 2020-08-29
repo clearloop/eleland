@@ -3,8 +3,9 @@ import Util from "/js/util.js";
 class ShapeConfig {
     constructor(target) {
         this.target = target;
-        this.size = 500;
         this.rotate = Util.Rand(100);
+        this.size = 500;
+        this.style = "ellipse";
         this.gradient = {
             enable: true,
             rotate: Util.Rand(100),
@@ -29,9 +30,6 @@ class ShapeConfig {
         this.animate = {
             enable: true,
         };
-        this.applyAnimate = {
-            enable: true,
-        };
         this.cx = this.size * 3 / 10;
         this.cy = this.size * 3 / 10;
         this.rx = 50 + Util.Rand(this.size / 8);
@@ -41,10 +39,11 @@ class ShapeConfig {
 
 class Shape {
     static NewConfig(target) {
-        return new ShapeConfig(d3.select(target).append("svg"));
+        return new ShapeConfig(target);
     }
 
     constructor(conf) {
+        conf.target = d3.select(conf.target).append("svg");
         this.conf = conf;
     }
 
@@ -58,7 +57,7 @@ class Shape {
 
         // Render shape
         conf.target = conf.target
-              .append("ellipse")
+              .append(conf.style)
               .attr("cx", conf.cx)
               .attr("cy", conf.cy)
               .attr("rx", conf.rx)
