@@ -5,7 +5,7 @@ class ShapeConfig {
         this.target = target;
         this.rotate = Util.Rand(100);
         this.size = 500;
-        this.style = "ellipse";
+        this.style = Util.Rand(2) === 1? "rect": "ellipse";
         this.gradient = {
             enable: true,
             rotate: Util.Rand(100),
@@ -30,8 +30,8 @@ class ShapeConfig {
         this.animate = {
             enable: true,
         };
-        this.cx = this.size * 3 / 10;
-        this.cy = this.size * 3 / 10;
+        this.x = this.size * 3 / 10;
+        this.y = this.size * 3 / 10;
         this.rx = 50 + Util.Rand(this.size / 8);
         this.ry = 50 + Util.Rand(this.size / 8);
     }
@@ -57,12 +57,22 @@ class Shape {
 
         // Render shape
         conf.target = conf.target
-              .append(conf.style)
-              .attr("cx", conf.cx)
-              .attr("cy", conf.cy)
-              .attr("rx", conf.rx)
-              .attr("ry", conf.ry)
-              .attr("fill", `url(#s0)`);
+            .append(conf.style)
+            .attr("rx", conf.rx)
+            .attr("ry", conf.ry)
+            .attr("fill", `url(#s0)`);
+
+        if (conf.style === "rect") {
+            conf.target
+                .attr("x", conf.size / 18)
+                .attr("y", conf.size / 18)
+                .attr("width", conf.size / 2)
+                .attr("height", conf.size / 2);
+        } else {
+            conf.target
+                .attr("cx", conf.x)
+                .attr("cy", conf.y);
+        }
 
         // Render Animate
         if (conf.animate.enable) {
