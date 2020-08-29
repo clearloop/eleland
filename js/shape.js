@@ -1,4 +1,4 @@
-import Util from "/js/util.js";
+import Util from "./util.js";
 
 class ShapeConfig {
     constructor(target) {
