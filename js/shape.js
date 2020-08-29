@@ -1,10 +1,11 @@
 import Util from "./util.js";
 
 class ShapeConfig {
-    constructor(target) {
-        this.target = target;
+    constructor(selector) {
+        this.selector = selector;
+        this.target = null;
         this.rotate = Util.Rand(100);
-        this.size = 500;
+        this.size = 300;
         this.style = Util.Rand(2) === 1? "rect": "ellipse";
         this.gradient = {
             enable: true,
@@ -29,9 +30,9 @@ class ShapeConfig {
         };
         this.animate = {
             enable: true,
+            rx: 5,
+            ry: 10,
         };
-        this.x = this.size * 3 / 10;
-        this.y = this.size * 3 / 10;
         this.rx = 50 + Util.Rand(this.size / 8);
         this.ry = 50 + Util.Rand(this.size / 8);
     }
@@ -43,7 +44,11 @@ class Shape {
     }
 
     constructor(conf) {
-        conf.target = d3.select(conf.target).append("svg");
+        conf.target = d3
+            .select(conf.selector)
+            .style("height", conf.size)
+            .style("width", conf.size)
+            .append("svg");
         this.conf = conf;
     }
 
@@ -58,20 +63,20 @@ class Shape {
         // Render shape
         conf.target = conf.target
             .append(conf.style)
-            .attr("rx", conf.rx)
-            .attr("ry", conf.ry)
-            .attr("fill", `url(#s0)`);
+            .attr("fill", `url(${conf.selector}-gradient)`);
 
         if (conf.style === "rect") {
             conf.target
-                .attr("x", conf.size / 18)
-                .attr("y", conf.size / 18)
-                .attr("width", conf.size / 2)
-                .attr("height", conf.size / 2);
+                .attr("rx", conf.rx)
+                .attr("ry", conf.ry)
+                .attr("width", conf.size)
+                .attr("height", conf.size);
         } else {
             conf.target
-                .attr("cx", conf.x)
-                .attr("cy", conf.y);
+                .attr("cx", conf.size / 2)
+                .attr("cy", conf.size / 2)
+                .attr("rx", conf.rx)
+                .attr("ry", conf.ry);
         }
 
         // Render Animate
@@ -87,7 +92,7 @@ class Shape {
               .append("defs")
               .append(conf.gradient.style)
               .attr("gradientTransform", `rotate(${conf.rotate})`)
-              .attr("id", "s0");
+              .attr("id", (`${conf.selector}-gradient`).slice(1));
 
         const g = conf.gradient;
         for (let i = 1; i<g.stops.length; i++) {
@@ -100,17 +105,26 @@ class Shape {
     // Apply animate
     animate() {
         const conf = this.conf;
+        const animate = conf.animate;
         conf.target.append("animate")
             .attr("attributeName", "rx")
-            .attr("values", `${conf.rx};${conf.rx / 2};${conf.rx}`)
-            .attr("dur", "10s")
-            .attr("repeatCount","indefinite");
+            .attr("dur", `${animate.rx}s`)
+            .attr("repeatCount","indefinite").attr(
+                "values",
+                conf.style === "rect"
+                    ?`${conf.rx};0;${conf.rx}`
+                    :`${conf.rx};${conf.size/2};${conf.rx}`
+            );
 
         conf.target.append("animate")
             .attr("attributeName", "ry")
-            .attr("values", `${conf.ry};${conf.ry / 2};${conf.ry}`)
-            .attr("dur", "5s")
-            .attr("repeatCount","indefinite");
+            .attr("dur", `${animate.ry}s`)
+            .attr("repeatCount","indefinite").attr(
+                "values",
+                conf.style === "rect"
+                    ?`${conf.ry};0;${conf.ry}`
+                    :`${conf.ry};${conf.size/2};${conf.ry}`
+            );
     }
 }
 
