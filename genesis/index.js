@@ -1,8 +1,9 @@
 import Shape from "../js/shape.js";
+import Frame from "../js/frame.js";
 
 // Main function
 (function(){
-    const land = d3.select("body")
+    Frame.Center()
           .append("svg")
           .attr("id", "land");
 

@@ -1,54 +1,53 @@
 import Util from "./util.js";
 
-class ShapeConfig {
-    constructor(selector) {
-        this.selector = selector;
-        this.target = null;
-        this.rotate = Util.Rand(100);
-        this.size = 300;
-        this.style = Util.Rand(2) === 1? "rect": "ellipse";
-        this.gradient = {
-            enable: true,
-            rotate: Util.Rand(100),
-            style: Util.Rand(2) === 1? "linearGradient": "radialGradient",
-            stops: [{
-                value: "5%",
-                color: Util.Color(),
-            }, {
-                value: "20%",
-                color: Util.Color(),
-            },{
-                value: "45%",
-                color: Util.Color(),
-            }, {
-                value: "75%",
-                color: Util.Color(),
-            }, {
-                value: "100%",
-                color: Util.Color(),
-            }],
-        };
-        this.animate = {
-            enable: true,
-            rx: 5,
-            ry: 10,
-        };
-        this.rx = Util.Rand(this.size / 2);
-        this.ry = Util.Rand(this.size / 2);
-    }
-}
-
 class Shape {
-    static NewConfig(target) {
-        return new ShapeConfig(target);
+    static NewConfig(selector) {
+        const size = window.innerHeight / 3;
+        return {
+            margin: 5,
+            selector : selector,
+            target : d3.select(selector),
+            rotate : Util.Rand(100),
+            size : size,
+            style : Util.Rand(2) === 1? "rect": "ellipse",
+            gradient : {
+                enable: true,
+                rotate: Util.Rand(100),
+                style: Util.Rand(2) === 1? "linearGradient": "radialGradient",
+                stops: [{
+                    value: "5%",
+                    color: Util.Color(),
+                }, {
+                    value: "20%",
+                    color: Util.Color(),
+                },{
+                    value: "45%",
+                    color: Util.Color(),
+                }, {
+                    value: "75%",
+                    color: Util.Color(),
+                }, {
+                    value: "100%",
+                    color: Util.Color(),
+                }],
+            },
+            animate : {
+                enable: true,
+                rx: 5,
+                ry: 10,
+            },
+            rx : Util.Rand(size/2),
+            ry : Util.Rand(size/2),
+        };
     }
 
     constructor(conf) {
+        conf.size = conf.size - conf.margin * 2;
         conf.target = d3
             .select(conf.selector)
+            .style("margin", conf.margin)
             .style("height", conf.size)
-            .style("width", conf.size)
-            .append("svg");
+            .style("width", conf.size);
         this.conf = conf;
     }
 
@@ -95,7 +94,7 @@ class Shape {
               .attr("id", (`${conf.selector}-gradient`).slice(1));
 
         const g = conf.gradient;
-        for (let i = 1; i<g.stops.length; i++) {
+        for (let i = 0; i<g.stops.length; i++) {
             lg.append("stop")
                 .attr("offset", `${g.stops[i].value}`)
                 .attr("stop-color", g.stops[i].color);
