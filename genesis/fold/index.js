@@ -1,4 +1,4 @@
-import Shape from "/js/shape.js";
+import Shape from "../../js/shape.js";
 
 // Main function
 (function(){

@@ -5,7 +5,7 @@ Electric Element Land
 
 ## Docs
 
-+ [Shape](https://github.com/clearloop/eleland/blob/master/DOCS.md#shape)
++ [Shape](https://github.com/clearloop/eleland/blob/master/docs.md#shape)
 
 
 ## License
