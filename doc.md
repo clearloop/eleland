@@ -13,9 +13,10 @@ new Shape(conf).Render();
 
 ```json
 {
-  "target": "#land",
-  "rotate": 59,
-  "size": 500,
+  "margin": 5,
+  "selector": "#land",
+  "rotate": 44,
+  "size": 256.6666666666667,
   "style": "ellipse",
   "gradient": {
     "enable": true,
@@ -24,35 +25,32 @@ new Shape(conf).Render();
     "stops": [
       {
         "value": "5%",
-        "color": "rgba(23, 249, 77, 0.7)"
+        "color": "rgba(136, 201, 226, 0.1)"
       },
       {
         "value": "20%",
-        "color": "rgba(93, 232, 130, 0.0)"
+        "color": "rgba(127, 44, 171, 0.8)"
       },
       {
         "value": "45%",
-        "color": "rgba(128, 178, 20, 1.0)"
+        "color": "rgba(136, 14, 238, 0.1)"
       },
       {
         "value": "75%",
-        "color": "rgba(251, 38, 35, 0.2)"
+        "color": "rgba(33, 222, 70, 0.6)"
       },
       {
         "value": "100%",
-        "color": "rgba(192, 167, 205, 0.2)"
+        "color": "rgba(12, 134, 143, 0.8)"
       }
     ]
   },
   "animate": {
-    "enable": true
+    "enable": true,
+    "rx": 5,
+    "ry": 10
   },
-  "applyAnimate": {
-    "enable": true
-  },
-  "cx": 150,
-  "cy": 150,
-  "rx": 110,
-  "ry": 86
+  "rx": 1,
+  "ry": 28
 }
 ```

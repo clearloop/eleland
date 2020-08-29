@@ -8,7 +8,6 @@ import Frame from "../../js/frame.js";
           .attr("id", "land");
 
     for (let i=0; i<4; i++) {
-        const conf = Shape.NewConfig("#land");
-        new Shape(conf).Render();
+        new Shape(Shape.NewConfig("#land")).Render();
     }
 })();

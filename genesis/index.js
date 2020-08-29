@@ -7,6 +7,5 @@ import Frame from "../js/frame.js";
           .append("svg")
           .attr("id", "land");
 
-    const conf = Shape.NewConfig("#land");
-    new Shape(conf).Render();
+    new Shape(Shape.NewConfig("#land")).Render();
 })();

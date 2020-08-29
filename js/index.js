@@ -12,9 +12,11 @@ import Frame from "./frame.js";
     for (let i=0; i< cols * rows; i++) {
         const id = "block-" + i;
         land.append("svg").attr("id", id);
+
         for (let p = 0; p<3; p++) {
-            const conf = Shape.NewConfig(`#${id}`);
-            conf.size = window.innerWidth / (cols + 1);
+            const conf = Shape
+                  .NewConfig(`#${id}`)
+                  .Size(window.innerWidth / (cols + 1));
             conf.margin = 25;
             new Shape(conf).Render();
         }
