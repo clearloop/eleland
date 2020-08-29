@@ -33,8 +33,8 @@ class ShapeConfig {
             rx: 5,
             ry: 10,
         };
-        this.rx = 50 + Util.Rand(this.size / 8);
-        this.ry = 50 + Util.Rand(this.size / 8);
+        this.rx = Util.Rand(this.size / 2);
+        this.ry = Util.Rand(this.size / 2);
     }
 }
 
@@ -112,7 +112,7 @@ class Shape {
             .attr("repeatCount","indefinite").attr(
                 "values",
                 conf.style === "rect"
-                    ?`${conf.rx};0;${conf.rx}`
+                    ?`${conf.rx};${conf.size/2};${conf.rx}`
                     :`${conf.rx};${conf.size/2};${conf.rx}`
             );
 
@@ -122,7 +122,7 @@ class Shape {
             .attr("repeatCount","indefinite").attr(
                 "values",
                 conf.style === "rect"
-                    ?`${conf.ry};0;${conf.ry}`
+                    ?`${conf.ry};${conf.size/2};${conf.ry}`
                     :`${conf.ry};${conf.size/2};${conf.ry}`
             );
     }
